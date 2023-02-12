@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Index</title>
+    </head>
+    <body>
+        {% if something %}
+        <!-- something is a boolean, representing if file is already uploaded or not -->
+        <p>Hello</p>
+        <p>Here is your output{{df}}</p>
+        <img src={{svg_path}} height="400" width="500">
+        {% else %}
+        <a href="/uploads/upload">Please upload a file</a>
+        {% endif %}
+    </body>
+</html>
