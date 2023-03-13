@@ -5,6 +5,9 @@ import pygal
 
 
 # Create your views here.
+def index(request):
+   return render(request,'desktopapp/index.html')
+
 def home(request):
     global df
     if request.method=='POST':
