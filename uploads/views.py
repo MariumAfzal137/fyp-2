@@ -8,6 +8,10 @@ import pygal
 def index(request):
    return render(request,'desktopapp/index.html')
 
+def login(request):
+   return render(request,'desktopapp/login.html')
+
+
 def home(request):
     global df
     if request.method=='POST':
