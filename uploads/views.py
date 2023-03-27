@@ -1,14 +1,18 @@
 from django.shortcuts import render,redirect
-from django.shortcuts import render
 import pandas as pd
 import matplotlib.pyplot as plt
 import pygal
-from .models import createUserForm
+from .models import createUserForm,Dataset
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
-
+from rest_framework import generics
+from .serializers import DatasetSerializer
 
 # Create your views here.
+class DatasetView(generics.CreateAPIView):
+    queryset= Dataset.objects.all()
+    serializer_class= DatasetSerializer
+
 def registerPage(request):
     form=createUserForm()
 
@@ -22,6 +26,7 @@ def registerPage(request):
     
     context={"form":form}        
     return render(request,'register.html',context)
+
 def loginPage(request):
    if request.method== "POST":
       username=request.POST.get('username')
@@ -57,6 +62,7 @@ def home(request):
 
 def upload(request):
     return render(request, 'fileupload.html')
+
 
 
 def check_text(text):

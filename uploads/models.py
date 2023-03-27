@@ -13,28 +13,22 @@ class createUserForm(UserCreationForm):
         fields=['username','email','password1','password2']
 
 class Dataset(models.Model):
-    Id=models.CharField(max_length=255,unique=True)
-    UserId=models.ForeignKey(User, on_delete=models.CASCADE)
-    File=models.FileField()
+    user=models.ForeignKey(User, on_delete=models.SET_NULL,null=True)
+    file=models.FileField()
 
 class Chart(models.Model):
-    LINE = 'Line'
-    BAR = 'Bar'
-    PIE = 'Pie'
-    Id= models.CharField(max_length=255,unique=True)
-    UserId= models.ForeignKey(User, on_delete=models.CASCADE)
-    DataSetId= models.ForeignKey(Dataset, on_delete=models.CASCADE)
-    
-    charttype = [
-       (BAR, ('Bar Graph')),
-       (PIE, ('Pie Chart')),
-       (LINE, ('Line Graph')),
-   ]
-    ChartType=models.CharField(max_length=255,choices=charttype,null=False,default='BAR')
-    Svg = models.FileField()
+    class chartTypes(models.TextChoices):
+        BarGraph='Bar'
+        LineGraph='Line'
+        PieChart='Pie'
+        AreaChart='Area'
+    user= models.ForeignKey(User, on_delete=models.SET_NULL,null=True)
+    dataSet= models.ForeignKey(Dataset, on_delete=models.CASCADE)
+    title=models.CharField(max_length=20,null=False,default="title unknown")
+    chartType=models.CharField(max_length=20,choices=chartTypes.choices,null=False,default='Bar')
+    image = models.FileField(upload_to='uploads/Files/',null=True,blank=True)
 
 class Report(models.Model):
-    Id= models.CharField(max_length=255,unique=True)
-    UserId= models.ForeignKey(User, on_delete=models.CASCADE)
-    DataSetId= models.ForeignKey(Dataset, on_delete=models.CASCADE)
-    ChartId=models.ForeignKey(Chart, on_delete=models.CASCADE)
+    user= models.ForeignKey(User, on_delete=models.CASCADE)
+    dataSet= models.ManyToManyField(Dataset)
+    chart=models.ManyToManyField(Chart)
