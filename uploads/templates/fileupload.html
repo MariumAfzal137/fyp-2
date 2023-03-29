@@ -4,7 +4,7 @@
         <title>Uploads</title>
     </head>
     <body>
-        <form method="POST" action="/uploads/" enctype="multipart/form-data">
+        <form method="POST" action={% url 'dataset' %} enctype="multipart/form-data">
             {% csrf_token %}
             <input type="file" name="myFile"><br><br>
             <input type="submit" name="submit">

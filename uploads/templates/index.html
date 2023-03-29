@@ -10,7 +10,7 @@
         <p>Here is your output{{df}}</p>
         <img src={{svg_path}} height="400" width="500">
         {% else %}
-        <a href="/uploads/upload">Please upload a file</a>
+        <a href="{% url 'upload' %}">Please upload a file</a>
         {% endif %}
     </body>
 </html>
