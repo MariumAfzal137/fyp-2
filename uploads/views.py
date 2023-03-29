@@ -11,6 +11,8 @@ def index(request):
 def login(request):
    return render(request,'desktopapp/login.html')
 
+def dashboard(request):
+    return render(request,'desktopapp/dashboard.html')
 
 def home(request):
     global df
